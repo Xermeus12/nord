@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 760">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#dce5df"/><stop offset="1" stop-color="#f2eee4"/></linearGradient>
+      <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9db2af"/><stop offset="1" stop-color="#283836"/></linearGradient>
+      <filter id="shadow"><feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#243128" flood-opacity=".18"/></filter>
+    </defs>
+    <rect width="100%" height="100%" fill="#dfe4db"/><rect width="960" height="760" fill="url(#sky)"/><circle cx="785" cy="120" r="58" fill="#fff5c2" opacity=".72"/><path d="M0 590 Q220 520 430 575 T960 545V760H0Z" fill="#91a58f"/><path d="M0 660 Q260 600 490 650 T960 615V760H0Z" fill="#6f876f"/><g filter="url(#shadow)"><path d="M145 595V350h490v308H145Z" fill="#eee5d7"/><path d="M115 372 362 240 667 372H115Z" fill="#2b342f"/><path d="M635 595V450h185v208H635Z" fill="#b6a68e"/><rect x="195" y="405" width="145" height="102" fill="url(#glass)"/><rect x="390" y="405" width="165" height="102" fill="url(#glass)"/><rect x="195" y="535" width="145" height="123" fill="url(#glass)"/><rect x="390" y="535" width="165" height="123" fill="url(#glass)"/><rect x="690" y="500" width="76" height="158" fill="#2b342f"/></g><g fill="#4e6b52"><circle cx="90" cy="640" r="56"/><circle cx="870" cy="625" r="70"/></g></svg>
