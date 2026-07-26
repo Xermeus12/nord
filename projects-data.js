@@ -15,8 +15,9 @@ window.PROJECTS = [
     downPayment: "от 842 600 ₽",
     monthlyPayment: "от 25 133 ₽/мес.",
     description: "Компактный одноэтажный дом с просторной кухней-гостиной и продуманной планировкой для семьи.",
-    image: "assets/project-83-house.webp",
-    plan: "assets/project-83-plan.webp"
+    image: "assets/project-83-house.png",
+    plan: "assets/project-83-plan.png",
+    poster: "assets/project-83-poster.png"
   },
   {
     id: "developer-87",
@@ -34,8 +35,9 @@ window.PROJECTS = [
     downPayment: "от 874 350 ₽",
     monthlyPayment: "от 20 838 ₽/мес.",
     description: "Рациональная планировка без лишних коридоров: общая зона, три спальни и выход на террасу.",
-    image: "assets/project-87-house.webp",
-    plan: "assets/project-87-plan.webp"
+    image: "assets/project-87-house.png",
+    plan: "assets/project-87-plan.png",
+    poster: "assets/project-87-poster.png"
   },
   {
     id: "developer-101",
@@ -53,8 +55,9 @@ window.PROJECTS = [
     downPayment: "от 1 020 075 ₽",
     monthlyPayment: "от 30 427 ₽/мес.",
     description: "Семейный дом с большой кухней-гостиной, тремя изолированными спальнями и удобной террасой.",
-    image: "assets/project-101-house.webp",
-    plan: "assets/project-101-plan.webp"
+    image: "assets/project-101-house.png",
+    plan: "assets/project-101-plan.png",
+    poster: "assets/project-101-poster.png"
   },
   {
     id: "developer-100",
@@ -72,8 +75,9 @@ window.PROJECTS = [
     downPayment: "от 1 011 030 ₽",
     monthlyPayment: "от 30 157 ₽/мес.",
     description: "Современный одноэтажный дом с панорамными окнами и гибкой семейной планировкой.",
-    image: "assets/project-100-house.webp",
-    plan: "assets/project-100-plan.webp"
+    image: "assets/project-100-house.png",
+    plan: "assets/project-100-plan.png",
+    poster: "assets/project-100-poster.png"
   },
   {
     id: "developer-105",
@@ -91,8 +95,9 @@ window.PROJECTS = [
     downPayment: "от 1 053 240 ₽",
     monthlyPayment: "от 31 416 ₽/мес.",
     description: "Лаконичный дом с большой общей зоной, тремя спальнями и прямым выходом во двор.",
-    image: "assets/project-104-house.webp",
-    plan: "assets/project-104-plan.webp"
+    image: "assets/project-104-house.png",
+    plan: "assets/project-104-plan.png",
+    poster: "assets/project-104-poster.png"
   },
   {
     id: "developer-132",
@@ -110,8 +115,9 @@ window.PROJECTS = [
     downPayment: "от 1 326 600 ₽",
     monthlyPayment: "от 39 570 ₽/мес.",
     description: "Просторный двухэтажный дом для большой семьи с выразительным фасадом и несколькими приватными зонами.",
-    image: "assets/project-132-house.webp",
-    plan: "assets/project-132-plan.webp"
+    image: "assets/project-132-house.png",
+    plan: "assets/project-132-plan.png",
+    poster: "assets/project-132-poster.png"
   }
 ];
 
