@@ -239,13 +239,21 @@
 <div class="modal__backdrop" data-modal-close=""></div>
 <div aria-labelledby="modal-title" aria-modal="true" class="modal__dialog" role="dialog">
 <button aria-label="Закрыть" class="modal__close" data-modal-close="" type="button">×</button>
-<div class="modal__media"><img alt="" data-modal-image="" src=""/><span data-modal-badge=""></span></div>
+<div class="modal__media modal__zoomable" data-zoom-target="photo" role="button" tabindex="0" aria-label="Увеличить изображение проекта"><img alt="" data-modal-image="" src=""/><span data-modal-badge=""></span><button class="zoom-hint" type="button">Увеличить фото</button></div>
 <div class="modal__content">
 <div><span class="kicker kicker--plain" data-modal-location=""></span><h2 data-modal-title="" id="modal-title"></h2><p data-modal-description=""></p></div>
 <div class="modal__details"><span><small>Площадь</small><strong data-modal-area=""></strong></span><span><small>Спальни</small><strong data-modal-bedrooms=""></strong></span><span><small>Этажность</small><strong data-modal-floors=""></strong></span><span><small>Стоимость</small><strong data-modal-price=""></strong></span><span><small>Первоначальный взнос</small><strong data-modal-downpayment=""></strong></span><span><small>Платёж</small><strong data-modal-monthly=""></strong></span></div><p class="modal__finance-note">Расчёт предварительный и не является офертой. Условия зависят от банка, программы и первоначального взноса.</p>
-<div class="modal__plan"><img alt="Планировка проекта" data-modal-plan="" src=""/></div>
+<div class="modal__plan modal__zoomable" data-zoom-target="plan" role="button" tabindex="0" aria-label="Увеличить планировку"><img alt="Планировка проекта" data-modal-plan="" src=""/><button class="zoom-hint zoom-hint--plan" type="button">Увеличить планировку</button></div>
 <a class="button button--accent button--wide" data-goal="project_consultation" data-modal-close="" href="#consultation">Получить расчёт по проекту</a>
 </div>
+</div>
+
+</div>
+<div aria-hidden="true" class="viewer" data-viewer="">
+<div class="viewer__backdrop" data-viewer-close=""></div>
+<div class="viewer__dialog" role="dialog" aria-modal="true" aria-label="Просмотр изображения">
+<button aria-label="Закрыть просмотр" class="viewer__close" data-viewer-close="" type="button">×</button>
+<img alt="Увеличенное изображение" class="viewer__image" data-viewer-image="" src=""/>
 </div>
 </div>
 <script src="site-config.js"></script>

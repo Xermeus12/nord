@@ -114,7 +114,47 @@
   const closeModal = () => { if (!modal) return; modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); document.body.classList.remove('modal-open'); };
   document.addEventListener('click', (event) => { const trigger = event.target.closest('[data-open-project]'); if (trigger) openModal(trigger.dataset.openProject); });
   $$('[data-modal-close]').forEach((el) => el.addEventListener('click', closeModal));
-  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
+
+  const viewer = $('[data-viewer]');
+  const viewerImage = $('[data-viewer-image]');
+  const openViewer = (src, alt='Изображение') => {
+    if (!viewer || !viewerImage || !src) return;
+    viewerImage.src = src;
+    viewerImage.alt = alt;
+    viewer.classList.add('is-open');
+    viewer.setAttribute('aria-hidden','false');
+    document.body.classList.add('modal-open');
+  };
+  const closeViewer = () => {
+    if (!viewer) return;
+    viewer.classList.remove('is-open');
+    viewer.setAttribute('aria-hidden','true');
+    if (!modal?.classList.contains('is-open')) document.body.classList.remove('modal-open');
+  };
+  ['[data-modal-image]', '[data-modal-plan]'].forEach((selector) => {
+    const el = $(selector);
+    el?.addEventListener('click', () => openViewer(el.currentSrc || el.src, el.alt || 'Изображение'));
+  });
+  $$('[data-zoom-target]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const img = $('img', el);
+      openViewer(img?.currentSrc || img?.src, img?.alt || 'Изображение');
+    });
+    el.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        const img = $('img', el);
+        openViewer(img?.currentSrc || img?.src, img?.alt || 'Изображение');
+      }
+    });
+  });
+  $$('[data-viewer-close]').forEach((el) => el.addEventListener('click', closeViewer));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      if (viewer?.classList.contains('is-open')) closeViewer();
+      else closeModal();
+    }
+  });
 
   $$('[data-lead-form]').forEach((form) => form.addEventListener('submit', async (event) => {
     event.preventDefault();
