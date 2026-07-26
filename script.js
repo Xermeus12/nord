@@ -2,6 +2,7 @@
   'use strict';
   const cfg = window.SITE_CONFIG || {};
   const projects = Array.isArray(window.PROJECTS) ? window.PROJECTS : [];
+  const readyHomes = Array.isArray(window.READY_HOMES) ? window.READY_HOMES : [];
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 
@@ -60,6 +61,7 @@
         <h3>${p.title}</h3>
         <p class="project-card__description">${p.description}</p>
         <div class="project-card__specs"><span>${p.bedrooms}</span><span>${p.floors}</span><span>${p.bathrooms}</span></div>
+        <div class="project-card__finance"><span><small>Взнос</small><strong>${p.downPayment || 'по расчёту'}</strong></span><span><small>Платёж</small><strong>${p.monthlyPayment || 'по расчёту'}</strong></span></div>
         <div class="project-card__foot"><strong>${p.price}</strong><button class="project-card__open" type="button" data-open-project="${p.id}">Подробнее ↗</button></div>
       </div>
     </article>`;
@@ -73,16 +75,38 @@
     goal('project_filter', { filter:value });
   }));
 
+  const readyGrid = $('[data-ready-grid]');
+  const money = (value) => `${new Intl.NumberFormat('ru-RU').format(value)} ₽`;
+  const readyRow = (home) => `
+    <article class="inventory__row" data-ready-community="${home.community}">
+      <div class="inventory__object"><strong>${home.address}</strong><small>${home.community}</small></div>
+      <span>${home.community}</span>
+      <span><b>${home.area}</b><small>${home.lot}</small></span>
+      <span><b>${home.finish}</b><small>${home.areaWithTerrace}</small></span>
+      <span class="inventory__price">${money(home.price)}</span>
+      <span><i class="status ${home.stage === 'Готов полностью' ? 'status--free' : 'status--hold'}">${home.stage}</i></span>
+      <span class="inventory__links"><a href="${home.gallery}" target="_blank" rel="noopener">Фото ↗</a><a href="${home.plan}" target="_blank" rel="noopener">План ↗</a></span>
+    </article>`;
+  if (readyGrid) readyGrid.innerHTML = readyHomes.map(readyRow).join('');
+  $$('[data-ready-filter]').forEach((button) => button.addEventListener('click', () => {
+    $$('[data-ready-filter]').forEach((b) => b.classList.toggle('active', b === button));
+    const value = button.dataset.readyFilter;
+    $$('.inventory__row', readyGrid).forEach((row) => row.classList.toggle('is-hidden', value !== 'all' && row.dataset.readyCommunity !== value));
+    goal('ready_filter', { location:value });
+  }));
+
   const modal = $('[data-project-modal]');
   const modalNodes = {
     image:$('[data-modal-image]'), badge:$('[data-modal-badge]'), location:$('[data-modal-location]'), title:$('[data-modal-title]'), description:$('[data-modal-description]'),
-    area:$('[data-modal-area]'), bedrooms:$('[data-modal-bedrooms]'), floors:$('[data-modal-floors]'), price:$('[data-modal-price]'), plan:$('[data-modal-plan]')
+    area:$('[data-modal-area]'), bedrooms:$('[data-modal-bedrooms]'), floors:$('[data-modal-floors]'), price:$('[data-modal-price]'),
+    downPayment:$('[data-modal-downpayment]'), monthly:$('[data-modal-monthly]'), plan:$('[data-modal-plan]')
   };
   const openModal = (id) => {
     const p = projects.find((item) => item.id === id); if (!p || !modal) return;
     modalNodes.image.src=p.image; modalNodes.image.alt=p.title; modalNodes.badge.textContent=p.badge; modalNodes.location.textContent=p.location;
     modalNodes.title.textContent=p.title; modalNodes.description.textContent=p.description; modalNodes.area.textContent=p.area; modalNodes.bedrooms.textContent=p.bedrooms;
-    modalNodes.floors.textContent=p.floors; modalNodes.price.textContent=p.price; modalNodes.plan.src=p.plan; modalNodes.plan.alt=`Планировка ${p.title}`;
+    modalNodes.floors.textContent=p.floors; modalNodes.price.textContent=p.price; modalNodes.downPayment.textContent=p.downPayment || 'по расчёту';
+    modalNodes.monthly.textContent=p.monthlyPayment || 'по расчёту'; modalNodes.plan.src=p.plan; modalNodes.plan.alt=`Планировка ${p.title}`;
     modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); document.body.classList.add('modal-open');
     goal('project_open', { project:p.id });
     setTimeout(() => $('[data-modal-close]', modal)?.focus(), 30);

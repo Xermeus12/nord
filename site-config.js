@@ -1,6 +1,6 @@
 window.SITE_CONFIG = {
-  brand: "ОБЪЕКТ 248",
-  descriptor: "Недвижимость и строительство",
+  brand: "РОСТОВСКОЕ МОРЕ",
+  descriptor: "Агентство недвижимости",
   phone: "+7 900 127-39-33",
   phoneHref: "+79001273933",
   telegram: "https://t.me/Noggato",
