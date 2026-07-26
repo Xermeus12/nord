@@ -591,3 +591,61 @@ body{background:linear-gradient(180deg,#f7fafc 0%,var(--bg) 38%,#f4f8fb 100%)}
 .modal__plan img{padding:12px}
 @media (max-width:960px){.project-card__plan-thumb{width:38%;bottom:12px;right:12px}.project-card__plan-label{bottom:145px;right:18px}.modal__media{min-height:360px}.modal__plan{height:340px}}
 @media (max-width:640px){.project-card__media{height:260px}.project-card__plan-thumb{width:44%;max-width:150px}.project-card__plan-label{display:none}.modal__media{height:280px;min-height:280px}.modal__plan{height:300px}}
+
+/* --- v7 final quick navigation contrast fix --- */
+.quick-card{
+  color:var(--ink);
+  transition:transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+}
+.quick-card h2,
+.quick-card h3,
+.quick-card small,
+.quick-card .quick-card__index,
+.quick-card>b{color:inherit}
+
+.quick-card--wide{
+  background:linear-gradient(135deg,#159ed3 0%,#0b6fa8 100%) !important;
+  color:#fff !important;
+  border-color:transparent;
+}
+.quick-card--wide:hover{
+  background:linear-gradient(135deg,#082f50 0%,#0b4773 100%) !important;
+  color:#fff !important;
+  border-color:transparent;
+}
+
+.quick-card--dark{
+  background:linear-gradient(135deg,#0b2e4e 0%,#0a426b 100%) !important;
+  color:#fff !important;
+  border-color:transparent;
+}
+.quick-card--dark:hover{
+  background:linear-gradient(135deg,#159ed3 0%,#0875b3 100%) !important;
+  color:#fff !important;
+  border-color:transparent;
+}
+
+.quick-card:not(.quick-card--wide):not(.quick-card--dark):not(.quick-card--image){
+  background:rgba(255,255,255,.66) !important;
+  color:var(--ink) !important;
+}
+.quick-card:not(.quick-card--wide):not(.quick-card--dark):not(.quick-card--image):hover{
+  background:#0b2e4e !important;
+  color:#fff !important;
+  border-color:#0b2e4e;
+}
+
+.quick-card--image{
+  background:linear-gradient(135deg,#dceef7 0%,#f7fbfd 100%) !important;
+  color:var(--ink) !important;
+}
+.quick-card--image:hover{
+  background:linear-gradient(135deg,#159ed3 0%,#0b6fa8 100%) !important;
+  color:#fff !important;
+  border-color:transparent;
+}
+
+.quick-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 24px 60px rgba(8,42,67,.16);
+}
