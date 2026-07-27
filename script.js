@@ -85,13 +85,13 @@
   const readyGrid = $('[data-ready-grid]');
   const readyRow = (home) => `
     <article class="inventory__row" data-ready-region="${home.regionGroup}" data-open-listing="${home.id}" data-listing-type="ready">
-      <div class="inventory__object"><strong>${home.title}</strong><small>${home.address}</small></div>
+      <div class="inventory__object"><img class="inventory__thumb" src="${home.image}" alt="${home.title}" loading="lazy"><span><strong>${home.title}</strong><small>${home.address}</small></span></div>
       <span>${home.regionLabel}<small>${home.community}</small></span>
       <span><b>${home.area}</b><small>${home.lot}</small></span>
       <span><b>${home.finish}</b><small>${home.areaWithTerrace}</small></span>
       <span class="inventory__price">${money(home.price)}</span>
       <span><i class="status ${home.stage === 'Готов полностью' ? 'status--free' : 'status--hold'}">${home.stage}</i></span>
-      <span class="inventory__links"><button class="ghost-link" type="button" data-open-listing="${home.id}" data-listing-type="ready">Фото и план ↗</button></span>
+      <span class="inventory__links"><button class="ghost-link" type="button" data-open-listing="${home.id}" data-listing-type="ready">Фото (${home.gallery?.length || 1}) и план ↗</button></span>
     </article>`;
   if (readyGrid) readyGrid.innerHTML = readyHomes.map(readyRow).join('');
   $$('[data-ready-filter]').forEach((button) => button.addEventListener('click', () => {
@@ -165,7 +165,7 @@
   const listingNodes = {
     image:$('[data-listing-image]'), badge:$('[data-listing-badge]'), location:$('[data-listing-location]'), title:$('[data-listing-title]'), description:$('[data-listing-description]'),
     area:$('[data-listing-area]'), lot:$('[data-listing-lot]'), finish:$('[data-listing-finish]'), price:$('[data-listing-price]'),
-    status:$('[data-listing-status]'), payment:$('[data-listing-payment]'), plan:$('[data-listing-plan]')
+    status:$('[data-listing-status]'), payment:$('[data-listing-payment]'), plan:$('[data-listing-plan]'), gallery:$('[data-listing-gallery]')
   };
   const listingMap = {
     ready: readyHomes,
@@ -190,7 +190,14 @@
     listingNodes.payment.textContent = item.paymentLabel || item.areaWithTerrace || 'уточняем';
     listingNodes.plan.src = item.planImage || item.image;
     listingNodes.plan.alt = `${item.title} — схема или доп. фото`;
-    listingNodes.image.dataset.viewerSrc = item.image;
+    const gallery = Array.isArray(item.gallery) && item.gallery.length ? item.gallery : [item.image];
+    listingNodes.gallery.innerHTML = gallery.map((src, index) => `<button class="modal__thumb${index === 0 ? ' is-active' : ''}" type="button" data-gallery-src="${src}" aria-label="Фото ${index + 1}"><img src="${src}" alt="${item.title}, фото ${index + 1}" loading="lazy"></button>`).join('');
+    listingNodes.gallery.querySelectorAll('[data-gallery-src]').forEach((button) => button.addEventListener('click', () => {
+      listingNodes.gallery.querySelectorAll('.modal__thumb').forEach((thumb) => thumb.classList.toggle('is-active', thumb === button));
+      listingNodes.image.src = button.dataset.gallerySrc;
+      listingNodes.image.dataset.viewerSrc = button.dataset.gallerySrc;
+    }));
+    listingNodes.image.dataset.viewerSrc = gallery[0];
     listingNodes.plan.dataset.viewerSrc = item.planImage || item.image;
     listingModal.classList.add('is-open');
     listingModal.setAttribute('aria-hidden','false');

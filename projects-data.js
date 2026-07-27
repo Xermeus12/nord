@@ -139,8 +139,9 @@ window.READY_HOMES = [
     status: "Свободен",
     materials: "Кирпич / газоблок",
     description: "Готовый дом от застройщика с участком и возможностью ипотечного сопровождения.",
-    image: "assets/project-100-house.png",
-    planImage: "assets/project-100-plan.png"
+    image: "assets/ready/olg-1.webp",
+    gallery: ["assets/ready/olg-1.webp", "assets/ready/olg-2.webp", "assets/ready/olg-3.webp", "assets/ready/olg-4.webp"],
+    planImage: "assets/ready/olg-plan-1.webp"
   },
   {
     id: "olg-127v",
@@ -159,8 +160,9 @@ window.READY_HOMES = [
     status: "Свободен",
     materials: "Кирпич / газоблок",
     description: "Семейный дом с террасой и готовой коробкой. Подойдёт для покупки по ипотеке.",
-    image: "assets/project-100-house.png",
-    planImage: "assets/project-100-plan.png"
+    image: "assets/ready/olg-1.webp",
+    gallery: ["assets/ready/olg-1.webp", "assets/ready/olg-2.webp", "assets/ready/olg-3.webp", "assets/ready/olg-4.webp"],
+    planImage: "assets/ready/olg-plan-1.webp"
   },
   {
     id: "olg-127b",
@@ -179,8 +181,9 @@ window.READY_HOMES = [
     status: "Свободен",
     materials: "Кирпич / газоблок",
     description: "Дом с удобной планировкой и хорошим стартом по цене для рекламной подачи.",
-    image: "assets/project-100-house.png",
-    planImage: "assets/project-100-plan.png"
+    image: "assets/ready/olg-1.webp",
+    gallery: ["assets/ready/olg-1.webp", "assets/ready/olg-2.webp", "assets/ready/olg-3.webp", "assets/ready/olg-4.webp"],
+    planImage: "assets/ready/olg-plan-1.webp"
   },
   {
     id: "olg-127a",
@@ -199,8 +202,9 @@ window.READY_HOMES = [
     status: "Свободен",
     materials: "Кирпич / газоблок",
     description: "Объект на стадии кровли. Можно входить на более ранней цене и выбрать комплектацию.",
-    image: "assets/project-83-house.png",
-    planImage: "assets/project-83-plan.png"
+    image: "assets/ready/olg-build-1.webp",
+    gallery: ["assets/ready/olg-build-1.webp", "assets/ready/olg-build-2.webp", "assets/ready/olg-build-3.webp", "assets/ready/olg-build-4.webp"],
+    planImage: "assets/ready/olg-plan-1.webp"
   },
   {
     id: "olg-127",
@@ -219,8 +223,9 @@ window.READY_HOMES = [
     status: "Свободен",
     materials: "Кирпич / газоблок",
     description: "Дом на ранней стадии готовности. Можно зайти на минимальном бюджете.",
-    image: "assets/project-104-house.png",
-    planImage: "assets/project-104-plan.png"
+    image: "assets/ready/olg-build-1.webp",
+    gallery: ["assets/ready/olg-build-1.webp", "assets/ready/olg-build-2.webp", "assets/ready/olg-build-3.webp", "assets/ready/olg-build-4.webp"],
+    planImage: "assets/ready/olg-plan-2.webp"
   },
   {
     id: "tem-11a",
@@ -239,8 +244,9 @@ window.READY_HOMES = [
     status: "Свободен",
     materials: "Кирпич / газоблок",
     description: "Готовый дом от застройщика с семейной планировкой и предчистовой отделкой.",
-    image: "assets/project-101-house.png",
-    planImage: "assets/project-101-plan.png"
+    image: "assets/ready/tem-1.webp",
+    gallery: ["assets/ready/tem-1.webp", "assets/ready/tem-2.webp", "assets/ready/tem-3.webp", "assets/ready/tem-4.webp"],
+    planImage: "assets/ready/tem-plan.webp"
   },
   {
     id: "tem-35",
@@ -259,8 +265,9 @@ window.READY_HOMES = [
     status: "Свободен",
     materials: "Кирпич / газоблок",
     description: "Новый дом с участком и выгодной ценой для рекламного лендинга.",
-    image: "assets/project-101-house.png",
-    planImage: "assets/project-101-plan.png"
+    image: "assets/ready/tem-1.webp",
+    gallery: ["assets/ready/tem-1.webp", "assets/ready/tem-2.webp", "assets/ready/tem-3.webp", "assets/ready/tem-4.webp"],
+    planImage: "assets/ready/tem-plan.webp"
   },
   {
     id: "tem-35a",
@@ -279,8 +286,9 @@ window.READY_HOMES = [
     status: "Свободен",
     materials: "Кирпич / газоблок",
     description: "Дом под ипотеку с террасой и готовой коробкой, показываем отдельно от вторички.",
-    image: "assets/project-104-house.png",
-    planImage: "assets/project-104-plan.png"
+    image: "assets/ready/tem-1.webp",
+    gallery: ["assets/ready/tem-1.webp", "assets/ready/tem-2.webp", "assets/ready/tem-3.webp", "assets/ready/tem-4.webp"],
+    planImage: "assets/ready/tem-plan.webp"
   },
   {
     id: "tem-35b",
@@ -299,8 +307,9 @@ window.READY_HOMES = [
     status: "Свободен",
     materials: "Кирпич / газоблок",
     description: "Готовый дом с хорошим стартовым чеком и понятной планировкой.",
-    image: "assets/project-101-house.png",
-    planImage: "assets/project-101-plan.png"
+    image: "assets/ready/tem-1.webp",
+    gallery: ["assets/ready/tem-1.webp", "assets/ready/tem-2.webp", "assets/ready/tem-3.webp", "assets/ready/tem-4.webp"],
+    planImage: "assets/ready/tem-plan.webp"
   },
   {
     id: "tem-35v",
@@ -319,8 +328,9 @@ window.READY_HOMES = [
     status: "Свободен",
     materials: "Кирпич / газоблок",
     description: "Более доступный дом под доработку отделки и индивидуальный бюджет.",
-    image: "assets/project-83-house.png",
-    planImage: "assets/project-83-plan.png"
+    image: "assets/ready/tem-1.webp",
+    gallery: ["assets/ready/tem-1.webp", "assets/ready/tem-2.webp", "assets/ready/tem-3.webp", "assets/ready/tem-4.webp"],
+    planImage: "assets/ready/tem-plan.webp"
   },
   {
     id: "tem-37",
@@ -339,8 +349,9 @@ window.READY_HOMES = [
     status: "Свободен",
     materials: "Кирпич / газоблок",
     description: "Готовый дом с просторной планировкой и выгодной стартовой ценой.",
-    image: "assets/project-104-house.png",
-    planImage: "assets/project-104-plan.png"
+    image: "assets/ready/tem-1.webp",
+    gallery: ["assets/ready/tem-1.webp", "assets/ready/tem-2.webp", "assets/ready/tem-3.webp", "assets/ready/tem-4.webp"],
+    planImage: "assets/ready/tem-plan.webp"
   },
   {
     id: "tem-37a",
@@ -359,8 +370,9 @@ window.READY_HOMES = [
     status: "Свободен",
     materials: "Кирпич / газоблок",
     description: "Базовый вариант по привлекательной цене, который не перегружает рекламное предложение.",
-    image: "assets/project-87-house.png",
-    planImage: "assets/project-87-plan.png"
+    image: "assets/ready/tem-1.webp",
+    gallery: ["assets/ready/tem-1.webp", "assets/ready/tem-2.webp", "assets/ready/tem-3.webp", "assets/ready/tem-4.webp"],
+    planImage: "assets/ready/tem-plan.webp"
   }
 ];
 

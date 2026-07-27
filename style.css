@@ -807,3 +807,15 @@ body{background:linear-gradient(180deg,#f7fafc 0%,var(--bg) 38%,#f4f8fb 100%)}
 .project-card__media::after{content:"";position:absolute;inset:auto 0 0 0;height:72px;background:linear-gradient(180deg,rgba(13,47,77,0) 0%, rgba(13,47,77,.18) 100%);pointer-events:none}
 .project-card__badge,.project-card__plan-hint{z-index:2}
 @media (max-width:640px){.lead-form input,.lead-form select{height:50px}}
+
+
+/* --- v12 real Drive photos for ready homes --- */
+.inventory__object{display:flex;align-items:center;gap:12px;min-width:0}
+.inventory__object>span{display:flex;flex-direction:column;min-width:0}
+.inventory__thumb{width:62px;height:48px;object-fit:cover;border-radius:12px;flex:0 0 auto;border:1px solid rgba(13,47,77,.1);box-shadow:0 8px 20px rgba(13,47,77,.08)}
+.modal__thumbs{display:flex;gap:9px;overflow-x:auto;padding:2px 2px 7px;scrollbar-width:thin}
+.modal__thumb{appearance:none;border:2px solid transparent;padding:0;background:transparent;border-radius:13px;overflow:hidden;width:88px;height:62px;flex:0 0 auto;cursor:pointer;opacity:.72;transition:.18s}
+.modal__thumb:hover{opacity:1;transform:translateY(-1px)}
+.modal__thumb.is-active{border-color:var(--accent);opacity:1;box-shadow:0 7px 18px rgba(19,135,196,.18)}
+.modal__thumb img{width:100%;height:100%;object-fit:cover}
+@media (max-width:760px){.inventory__thumb{width:76px;height:58px}.inventory__object{align-items:flex-start}.modal__thumb{width:76px;height:56px}}
