@@ -57,7 +57,11 @@
   const grid = $('[data-project-grid]');
   const projectCard = (p) => `
     <article class="project-card reveal" data-project-id="${p.id}" data-type="${p.type}" data-categories="${[p.type,...p.category].join(' ')}">
-      <div class="project-card__media"><img src="${p.image}" alt="${p.title}" loading="lazy"><img class="project-card__plan-thumb" src="${p.plan}" alt="Планировка ${p.title}" loading="lazy"><span class="project-card__badge">${p.badge}</span><span class="project-card__plan-label">Планировка</span></div>
+      <div class="project-card__media">
+        <img src="${p.image}" alt="${p.title}" loading="lazy">
+        <span class="project-card__badge">${p.badge}</span>
+        <span class="project-card__plan-hint">Планировка внутри ↗</span>
+      </div>
       <div class="project-card__body">
         <div class="project-card__meta"><span>${p.location}</span><span>${p.area}</span></div>
         <h3>${p.title}</h3>
@@ -147,7 +151,7 @@
     modalNodes.title.textContent=p.title; modalNodes.description.textContent=p.description; modalNodes.area.textContent=p.area; modalNodes.bedrooms.textContent=p.bedrooms;
     modalNodes.floors.textContent=p.floors; modalNodes.price.textContent=p.price; modalNodes.downPayment.textContent=p.downPayment || 'по расчёту';
     modalNodes.monthly.textContent=p.monthlyPayment || 'по расчёту'; modalNodes.plan.src=p.plan; modalNodes.plan.alt=`Планировка ${p.title}`;
-    modalNodes.image.dataset.viewerSrc = p.poster || p.image;
+    modalNodes.image.dataset.viewerSrc = p.image;
     modalNodes.plan.dataset.viewerSrc = p.plan;
     modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); document.body.classList.add('modal-open');
     goal('project_open', { project:p.id });

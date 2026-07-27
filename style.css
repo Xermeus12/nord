@@ -199,8 +199,8 @@ button{color:inherit}
 .lead-form label{display:block;margin-bottom:13px}
 .lead-form label>span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:7px;font-weight:750}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.lead-form input,.lead-form select{width:100%;height:52px;border-radius:12px;border:1px solid var(--line);background:#f4f2ec;padding:0 13px;outline:none}
-.lead-form input:focus,.lead-form select:focus{border-color:var(--forest);box-shadow:0 0 0 3px rgba(52,70,59,.1)}
+.lead-form input,.lead-form select{width:100%;height:52px;border-radius:12px;border:1px solid rgba(19,135,196,.18);background:linear-gradient(180deg,#ffffff 0%, #f4f8fb 100%);padding:0 13px;outline:none;color:var(--ink);-webkit-appearance:none;appearance:none}
+.lead-form input:focus,.lead-form select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(19,135,196,.14)}
 .checkbox{display:flex!important;align-items:flex-start;gap:8px;margin:16px 0!important}
 .checkbox input{width:17px;height:17px;min-width:17px;margin-top:2px}
 .checkbox span{font-size:10px!important;line-height:1.45;text-transform:none!important;letter-spacing:0!important;margin:0!important}
@@ -783,3 +783,27 @@ body{background:linear-gradient(180deg,#f7fafc 0%,var(--bg) 38%,#f4f8fb 100%)}
 .showcase-grid--plots .listing-card__media{aspect-ratio:16/9}
 @media (max-width:980px){.showcase-grid{grid-template-columns:1fr}.plots-layout--cards{grid-template-columns:1fr}.plots-intro{padding:28px}.plots-intro h3{font-size:34px}}
 @media (max-width:640px){.listing-card__body h3{font-size:24px}.listing-card__foot{flex-direction:column;align-items:flex-start}.listing-card__foot strong{font-size:20px}}
+
+
+/* --- v10 cleanup: sharper cards, no plan overlay noise, updated editorial media --- */
+.project-card__media{position:relative;height:280px;background:#dbeaf3;overflow:hidden}
+.project-card__media img{display:block;width:100%;height:100%;object-fit:cover;transform:none!important}
+.project-card__plan-thumb,.project-card__plan-label{display:none!important}
+.project-card__plan-hint{position:absolute;right:16px;bottom:16px;display:inline-flex;align-items:center;gap:6px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);box-shadow:0 10px 28px rgba(8,42,67,.16);font-size:11px;font-weight:800;letter-spacing:.03em;color:var(--ink)}
+.project-card:hover .project-card__media img{transform:scale(1.02)!important}
+.editorial-card__image{background:#eaf2f7}
+.editorial-card__image img{display:block;width:100%;height:100%;object-fit:cover}
+@media (max-width:640px){.project-card__media{height:236px}.project-card__plan-hint{right:12px;bottom:12px;padding:8px 12px;font-size:10px}}
+
+
+/* --- v11 form palette + project media cleanup --- */
+.lead-form input::placeholder{color:#7a8e9f}
+.lead-form select{background-image:linear-gradient(180deg,#ffffff 0%, #f4f8fb 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%230d2f4d' d='M4.47 5.97a.75.75 0 0 1 1.06 0L8 8.44l2.47-2.47a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 0 1 0-1.06Z'/%3E%3C/svg%3E");background-repeat:no-repeat,no-repeat;background-position:0 0,right 14px center;background-size:auto,16px;padding-right:40px}
+.lead-form input:-webkit-autofill,.lead-form select:-webkit-autofill{box-shadow:0 0 0 1000px #f7fbff inset!important;-webkit-text-fill-color:var(--ink)!important;border:1px solid rgba(19,135,196,.18)}
+.checkbox input{accent-color:var(--accent)}
+.project-card{display:flex;flex-direction:column}
+.project-card__body{background:var(--paper);position:relative;z-index:2}
+.project-card__media{border-bottom:1px solid rgba(13,47,77,.08)}
+.project-card__media::after{content:"";position:absolute;inset:auto 0 0 0;height:72px;background:linear-gradient(180deg,rgba(13,47,77,0) 0%, rgba(13,47,77,.18) 100%);pointer-events:none}
+.project-card__badge,.project-card__plan-hint{z-index:2}
+@media (max-width:640px){.lead-form input,.lead-form select{height:50px}}
