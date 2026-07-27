@@ -3,6 +3,8 @@
   const cfg = window.SITE_CONFIG || {};
   const projects = Array.isArray(window.PROJECTS) ? window.PROJECTS : [];
   const readyHomes = Array.isArray(window.READY_HOMES) ? window.READY_HOMES : [];
+  const secondaryHomes = Array.isArray(window.SECONDARY_HOMES) ? window.SECONDARY_HOMES : [];
+  const plots = Array.isArray(window.PLOTS) ? window.PLOTS : [];
   const $ = (s, root = document) => root.querySelector(s);
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 
@@ -75,23 +77,23 @@
     goal('project_filter', { filter:value });
   }));
 
-  const readyGrid = $('[data-ready-grid]');
   const money = (value) => `${new Intl.NumberFormat('ru-RU').format(value)} ₽`;
+  const readyGrid = $('[data-ready-grid]');
   const readyRow = (home) => `
-    <article class="inventory__row" data-ready-community="${home.community}">
-      <div class="inventory__object"><strong>${home.address}</strong><small>${home.community}</small></div>
-      <span>${home.community}</span>
+    <article class="inventory__row" data-ready-region="${home.regionGroup}" data-open-listing="${home.id}" data-listing-type="ready">
+      <div class="inventory__object"><strong>${home.title}</strong><small>${home.address}</small></div>
+      <span>${home.regionLabel}<small>${home.community}</small></span>
       <span><b>${home.area}</b><small>${home.lot}</small></span>
       <span><b>${home.finish}</b><small>${home.areaWithTerrace}</small></span>
       <span class="inventory__price">${money(home.price)}</span>
       <span><i class="status ${home.stage === 'Готов полностью' ? 'status--free' : 'status--hold'}">${home.stage}</i></span>
-      <span class="inventory__links"><a href="${home.gallery}" target="_blank" rel="noopener">Фото ↗</a><a href="${home.plan}" target="_blank" rel="noopener">План ↗</a></span>
+      <span class="inventory__links"><button class="ghost-link" type="button" data-open-listing="${home.id}" data-listing-type="ready">Фото и план ↗</button></span>
     </article>`;
   if (readyGrid) readyGrid.innerHTML = readyHomes.map(readyRow).join('');
   $$('[data-ready-filter]').forEach((button) => button.addEventListener('click', () => {
     $$('[data-ready-filter]').forEach((b) => b.classList.toggle('active', b === button));
     const value = button.dataset.readyFilter;
-    $$('.inventory__row', readyGrid).forEach((row) => row.classList.toggle('is-hidden', value !== 'all' && row.dataset.readyCommunity !== value));
+    $$('.inventory__row', readyGrid).forEach((row) => row.classList.toggle('is-hidden', value !== 'all' && row.dataset.readyRegion !== value));
     goal('ready_filter', { location:value });
   }));
 
@@ -110,6 +112,23 @@
     goal('market_tab', { market:value });
   }));
 
+  const secondaryGrid = $('[data-secondary-grid]');
+  const showcaseCard = (item, type) => `
+    <article class="listing-card reveal" data-open-listing="${item.id}" data-listing-type="${type}">
+      <div class="listing-card__media"><img src="${item.image}" alt="${item.title}" loading="lazy"></div>
+      <div class="listing-card__body">
+        <span class="listing-card__tag">${item.regionLabel}</span>
+        <h3>${item.title}</h3>
+        <p>${item.description}</p>
+        <div class="listing-card__meta"><span>${item.area}</span><span>${item.lot || item.metaOne || ''}</span></div>
+        <div class="listing-card__foot"><strong>${item.priceLabel}</strong><button class="project-card__open" type="button" data-open-listing="${item.id}" data-listing-type="${type}">Открыть ↗</button></div>
+      </div>
+    </article>`;
+  if (secondaryGrid) secondaryGrid.innerHTML = secondaryHomes.map((item) => showcaseCard(item, 'secondary')).join('');
+
+  const plotsGrid = $('[data-plots-grid]');
+  if (plotsGrid) plotsGrid.innerHTML = plots.map((item) => showcaseCard(item, 'plot')).join('');
+
   $$('[data-plot-request]').forEach((link) => link.addEventListener('click', () => {
     const select = $('[name="interest"]');
     if (select) select.value = 'Земельный участок';
@@ -122,7 +141,7 @@
     area:$('[data-modal-area]'), bedrooms:$('[data-modal-bedrooms]'), floors:$('[data-modal-floors]'), price:$('[data-modal-price]'),
     downPayment:$('[data-modal-downpayment]'), monthly:$('[data-modal-monthly]'), plan:$('[data-modal-plan]')
   };
-  const openModal = (id) => {
+  const openProjectModal = (id) => {
     const p = projects.find((item) => item.id === id); if (!p || !modal) return;
     modalNodes.image.src=p.image; modalNodes.image.alt=p.title; modalNodes.badge.textContent=p.badge; modalNodes.location.textContent=p.location;
     modalNodes.title.textContent=p.title; modalNodes.description.textContent=p.description; modalNodes.area.textContent=p.area; modalNodes.bedrooms.textContent=p.bedrooms;
@@ -134,9 +153,61 @@
     goal('project_open', { project:p.id });
     setTimeout(() => $('[data-modal-close]', modal)?.focus(), 30);
   };
-  const closeModal = () => { if (!modal) return; modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); document.body.classList.remove('modal-open'); };
-  document.addEventListener('click', (event) => { const trigger = event.target.closest('[data-open-project]'); if (trigger) openModal(trigger.dataset.openProject); });
-  $$('[data-modal-close]').forEach((el) => el.addEventListener('click', closeModal));
+  const closeProjectModal = () => { if (!modal) return; modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); document.body.classList.remove('modal-open'); };
+  document.addEventListener('click', (event) => { const trigger = event.target.closest('[data-open-project]'); if (trigger) openProjectModal(trigger.dataset.openProject); });
+  $$('[data-modal-close]').forEach((el) => el.addEventListener('click', closeProjectModal));
+
+  const listingModal = $('[data-listing-modal]');
+  const listingNodes = {
+    image:$('[data-listing-image]'), badge:$('[data-listing-badge]'), location:$('[data-listing-location]'), title:$('[data-listing-title]'), description:$('[data-listing-description]'),
+    area:$('[data-listing-area]'), lot:$('[data-listing-lot]'), finish:$('[data-listing-finish]'), price:$('[data-listing-price]'),
+    status:$('[data-listing-status]'), payment:$('[data-listing-payment]'), plan:$('[data-listing-plan]')
+  };
+  const listingMap = {
+    ready: readyHomes,
+    secondary: secondaryHomes,
+    plot: plots
+  };
+  const openListingModal = (type, id) => {
+    const list = listingMap[type] || [];
+    const item = list.find((entry) => entry.id === id);
+    if (!item || !listingModal) return;
+    listingNodes.image.src = item.image;
+    listingNodes.image.alt = item.title;
+    listingNodes.badge.textContent = type === 'plot' ? 'Участок' : (type === 'secondary' ? 'Вторичный рынок' : 'Готовый дом');
+    listingNodes.location.textContent = item.regionLabel || item.community || '';
+    listingNodes.title.textContent = item.title;
+    listingNodes.description.textContent = item.description || '';
+    listingNodes.area.textContent = item.area || 'по запросу';
+    listingNodes.lot.textContent = item.lot || item.metaOne || 'по запросу';
+    listingNodes.finish.textContent = item.finish || item.metaTwo || 'подбор вручную';
+    listingNodes.price.textContent = item.priceLabel || (typeof item.price === 'number' ? money(item.price) : 'по запросу');
+    listingNodes.status.textContent = item.stage || item.status || 'актуально';
+    listingNodes.payment.textContent = item.paymentLabel || item.areaWithTerrace || 'уточняем';
+    listingNodes.plan.src = item.planImage || item.image;
+    listingNodes.plan.alt = `${item.title} — схема или доп. фото`;
+    listingNodes.image.dataset.viewerSrc = item.image;
+    listingNodes.plan.dataset.viewerSrc = item.planImage || item.image;
+    listingModal.classList.add('is-open');
+    listingModal.setAttribute('aria-hidden','false');
+    document.body.classList.add('modal-open');
+    goal('listing_open', { listing:type, id:item.id });
+  };
+  const closeListingModal = () => {
+    if (!listingModal) return;
+    listingModal.classList.remove('is-open');
+    listingModal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('modal-open');
+  };
+  document.addEventListener('click', (event) => {
+    const trigger = event.target.closest('[data-open-listing]');
+    if (!trigger) return;
+    const id = trigger.dataset.openListing;
+    const type = trigger.dataset.listingType || 'ready';
+    event.preventDefault();
+    openListingModal(type, id);
+  });
+  $$('[data-listing-close]').forEach((el) => el.addEventListener('click', closeListingModal));
 
   const viewer = $('[data-viewer]');
   const viewerImage = $('[data-viewer-image]');
@@ -152,9 +223,9 @@
     if (!viewer) return;
     viewer.classList.remove('is-open');
     viewer.setAttribute('aria-hidden','true');
-    if (!modal?.classList.contains('is-open')) document.body.classList.remove('modal-open');
+    if (!modal?.classList.contains('is-open') && !listingModal?.classList.contains('is-open')) document.body.classList.remove('modal-open');
   };
-  ['[data-modal-image]', '[data-modal-plan]'].forEach((selector) => {
+  ['[data-modal-image]', '[data-modal-plan]', '[data-listing-image]', '[data-listing-plan]'].forEach((selector) => {
     const el = $(selector);
     el?.addEventListener('click', () => openViewer(el.dataset.viewerSrc || el.currentSrc || el.src, el.alt || 'Изображение'));
   });
@@ -171,11 +242,25 @@
       }
     });
   });
+  $$('[data-listing-photo-target], [data-listing-plan-target]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const img = $('img', el);
+      openViewer(img?.dataset.viewerSrc || img?.currentSrc || img?.src, img?.alt || 'Изображение');
+    });
+    el.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        const img = $('img', el);
+        openViewer(img?.dataset.viewerSrc || img?.currentSrc || img?.src, img?.alt || 'Изображение');
+      }
+    });
+  });
   $$('[data-viewer-close]').forEach((el) => el.addEventListener('click', closeViewer));
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       if (viewer?.classList.contains('is-open')) closeViewer();
-      else closeModal();
+      else if (listingModal?.classList.contains('is-open')) closeListingModal();
+      else closeProjectModal();
     }
   });
 
