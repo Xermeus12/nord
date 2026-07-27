@@ -67,7 +67,7 @@
     </article>`;
   if (grid) grid.innerHTML = projects.map(projectCard).join('');
 
-  const filters = $$('.filter');
+  const filters = $$('[data-filter]');
   filters.forEach((button) => button.addEventListener('click', () => {
     filters.forEach((b) => b.classList.toggle('active', b === button));
     const value = button.dataset.filter;
@@ -93,6 +93,27 @@
     const value = button.dataset.readyFilter;
     $$('.inventory__row', readyGrid).forEach((row) => row.classList.toggle('is-hidden', value !== 'all' && row.dataset.readyCommunity !== value));
     goal('ready_filter', { location:value });
+  }));
+
+  $$('[data-market-tab]').forEach((button) => button.addEventListener('click', () => {
+    const value = button.dataset.marketTab;
+    $$('[data-market-tab]').forEach((tab) => {
+      const active = tab === button;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', String(active));
+    });
+    $$('[data-market-panel]').forEach((panel) => {
+      const active = panel.dataset.marketPanel === value;
+      panel.classList.toggle('active', active);
+      panel.hidden = !active;
+    });
+    goal('market_tab', { market:value });
+  }));
+
+  $$('[data-plot-request]').forEach((link) => link.addEventListener('click', () => {
+    const select = $('[name="interest"]');
+    if (select) select.value = 'Земельный участок';
+    goal('plot_request');
   }));
 
   const modal = $('[data-project-modal]');
@@ -164,12 +185,18 @@
     if (!form.checkValidity()) { form.reportValidity(); status.textContent='Проверьте обязательные поля.'; status.classList.add('is-error'); return; }
     status.classList.remove('is-error');
     const data = Object.fromEntries(new FormData(form).entries());
+    data.page = window.location.href;
+    data.referrer = document.referrer || '';
+    data.utm_source = new URLSearchParams(window.location.search).get('utm_source') || '';
+    data.utm_campaign = new URLSearchParams(window.location.search).get('utm_campaign') || '';
+    data.utm_content = new URLSearchParams(window.location.search).get('utm_content') || '';
+    data.utm_term = new URLSearchParams(window.location.search).get('utm_term') || '';
     try {
       if (cfg.leadEndpoint) {
         const response = await fetch(cfg.leadEndpoint, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
         if (!response.ok) throw new Error('Lead endpoint error');
       }
-      status.textContent='Спасибо! Заявка принята. В рабочей версии она уйдёт в Telegram или CRM.';
+      status.textContent = cfg.leadEndpoint ? 'Спасибо! Заявка отправлена специалисту в MAX.' : 'Демо-форма готова. После подключения токена заявки будут приходить в MAX.';
       form.reset(); goal('lead_submit', { interest:data.interest || '' });
     } catch (error) {
       status.textContent=`Не удалось отправить. Позвоните: ${cfg.phone || ''}`; status.classList.add('is-error');
